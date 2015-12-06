@@ -103,6 +103,13 @@ div.row {
   padding-bottom: 4rem;
 }
 
+div.row p > img, div.row p > iframe, div.row p > small {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+}
+
 footer {
   background-color: #1e549f;
   color: #ffffff;
