@@ -83,6 +83,10 @@
 
     $(document).ready(function () {
       $.getJSON('./gallery.json', function(data) {
+        $(data).each(function (k, v){
+          $('<img/>')[0].src = v.url;
+        });
+
         var images = data.length;
         var index = 0;
         setPhoto(data, index);
