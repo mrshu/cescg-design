@@ -1,0 +1,17 @@
+[
+  {
+    "url": "images/gallery/img1.jpg",
+    "url_preview": "images/gallery/img1.jpg",
+    "text": "Image 1"
+  },
+  {
+    "url": "images/gallery/img2.jpg",
+    "url_preview": "images/gallery/img2.jpg",
+    "text": "Image 2"
+  },
+  {
+    "url": "images/gallery/img3.jpg",
+    "url_preview": "images/gallery/img3.jpg",
+    "text": "Image 3"
+  }
+]

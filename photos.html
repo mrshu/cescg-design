@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Central European Seminar on Computer Graphics for students</title>
+  <meta name="description" content="Central European Seminar on Computer Graphics for students">
+  <meta name="author" content="Central European Seminar on Computer Graphics for students">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="//fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/base.css">
+
+  <link rel="icon" type="image/png" href="images/cescg_favicon.png">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <style type="text/css" media="screen">
+    .gallery {
+      position: relative;
+      max-width: 80rem;
+      margin: 0 auto;
+    }
+
+    .gallery .image {
+      max-width: 100%;
+    }
+
+    .gallery .controls {
+      max-width: 100%;
+    }
+
+    .gallery .controls .next {
+      position: absolute;
+      top: 50%;
+      right: 3%;
+      font-size: 2em;
+      color: wheat;
+      cursor: pointer;
+    }
+
+    .gallery .controls .prev {
+      position: absolute;
+      top: 50%;
+      left: 3%;
+      font-size: 2em;
+      color: wheat;
+      cursor: pointer;
+    }
+
+    .gallery .controls .title {
+      text-align: center;
+      width: 70%;
+      float: left;
+    }
+
+    .gallery .controls .autoplay {
+      text-align: center;
+      width: 15%;
+      float: left;
+    }
+
+    .gallery .controls .fullscreen {
+      text-align: center;
+      width: 15%;
+      float: left;
+  }
+  </style>
+
+  <script type="text/javascript" charset="utf-8">
+    function setPhoto(data, index) {
+      $('.gallery .image').attr({
+        'src': data[index].url,
+        'alt': data[index].text,
+        'title': data[index].text
+      });
+      $('.gallery .controls .title').text(data[index].text);
+    }
+
+    $(document).ready(function () {
+      $.getJSON('./gallery.json', function(data) {
+        var images = data.length;
+        var index = 0;
+        setPhoto(data, index);
+
+        function runPhoto(delta) {
+          index = (index + delta + images) % images;
+          $('.gallery').fadeOut('slow', function() {
+            setPhoto(data, index);
+          }).fadeIn(1000);
+        }
+
+
+        $('.gallery .controls .fullscreen').click(function () {
+          // cross-browser full screen toggle, inspired by https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
+          if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+           (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+            var elem = document.getElementById("gallery");
+            if (elem.requestFullscreen) {
+              elem.requestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+              elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+              elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+              elem.webkitRequestFullscreen();
+            }
+            $('.gallery').css({'max-width': '80%'});
+          } else {
+            if (document.cancelFullScreen) {
+              document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+              document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+              document.webkitCancelFullScreen();
+            }
+            $('.gallery').css({'max-width': '80rem'});
+          }
+        });
+        $('.gallery .controls .next').click(function () {
+          runPhoto(1);
+        });
+        $('.gallery .controls .prev').click(function () {
+          runPhoto(-1);
+        });
+
+        setInterval(function (){
+          if ($('.gallery .controls .autoplaying').is(':checked')) {
+            runPhoto(1);
+          }
+        }, 5000);
+      });
+    });
+  </script>
+
+</head>
+<body>
+  <div class="container">
+    <div id="header" class="row">
+      <img src="images/cescg.png" alt="CESCG logo">
+      <h1 id="logo">CESCG 2016</h1>
+    </div>
+
+    <nav class="row navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="venue.html">Venue</a></li>
+        <li><a href="#">Program</a></li>
+        <li><a href="participants.html">Participants</a></li>
+        <li><a href="#">Awards</a></li>
+        <li><a class="active" href="photos.html">Photos</a></li>
+      </ul>
+    </nav>
+
+    <div class="row">
+      <h2 class="subtitle">
+         19th Central European Seminar on Computer Graphics 2015
+      </h2>
+    </div>
+
+    <div class="row">
+      <h2>Photos</h2>
+      <div id="gallery" class="gallery">
+        <img class="image" src="" alt="">
+        <div class="controls">
+          <span class="prev">&#9664;</span>
+          <span class="next">&#9654;</span>
+          <div class="title">Some title</div>
+          <div class="autoplay"><input type="checkbox" checked="checked" name="autoplay" class="autoplaying" />Autoplay</div>
+          <div class="fullscreen"><a href="#">Toggle full screen!</a></div>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p class="subtext">&copy; CESCG 2016. All rights reserved. | Design by X | Contact us at spam@unimail.edu</p>
+    </footer>
+  </div>
+</body>
+</html>
