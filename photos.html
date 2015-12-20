@@ -20,9 +20,14 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
   <style type="text/css" media="screen">
+    #g {
+      max-width: 80rem;
+      margin: 0 auto;
+      background-color: #fff;
+    }
+
     .gallery {
       position: relative;
-      max-width: 80rem;
       margin: 0 auto;
     }
 
@@ -103,7 +108,7 @@
           // cross-browser full screen toggle, inspired by https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
           if ((document.fullScreenElement && document.fullScreenElement !== null) ||
            (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-            var elem = document.getElementById("gallery");
+            var elem = document.getElementById("g");
             if (elem.requestFullscreen) {
               elem.requestFullscreen();
             } else if (elem.msRequestFullscreen) {
@@ -113,6 +118,7 @@
             } else if (elem.webkitRequestFullscreen) {
               elem.webkitRequestFullscreen();
             }
+            $('#g').css({'max-width': '80%'});
             $('.gallery').css({'max-width': '80%'});
           } else {
             if (document.cancelFullScreen) {
@@ -122,7 +128,8 @@
             } else if (document.webkitCancelFullScreen) {
               document.webkitCancelFullScreen();
             }
-            $('.gallery').css({'max-width': '80rem'});
+            $('#g').css({'max-width': ''});
+            $('.gallery').css({'max-width': ''});
           }
         });
         $('.gallery .controls .next').click(function () {
@@ -168,15 +175,17 @@
 
     <div class="row">
       <h2>Photos</h2>
-      <div id="gallery" class="gallery">
-        <img class="image" src="" alt="">
-        <div class="controls">
-          <span class="prev">&#9664;</span>
-          <span class="next">&#9654;</span>
-          <div class="title">Some title</div>
-          <div class="autoplay"><input type="checkbox" checked="checked" name="autoplay" class="autoplaying" />Autoplay</div>
-          <div class="fullscreen"><a href="#">Toggle full screen!</a></div>
-          <div style="clear: both;"></div>
+      <div id="g">
+        <div id="gallery" class="gallery">
+          <img class="image" src="" alt="">
+          <div class="controls">
+            <span class="prev">&#9664;</span>
+            <span class="next">&#9654;</span>
+            <div class="title">Some title</div>
+            <div class="autoplay"><input type="checkbox" checked="checked" name="autoplay" class="autoplaying" />Autoplay</div>
+            <div class="fullscreen"><a href="#">Toggle full screen!</a></div>
+            <div style="clear: both;"></div>
+          </div>
         </div>
       </div>
 
